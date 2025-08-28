@@ -3,6 +3,7 @@ use std::io::{self, BufRead};
 mod error;
 mod world;
 mod flatlander;
+mod shadow;
 
 fn read_first_line<R: BufRead>(reader: &mut R) -> Result<String, error::InputError> {
     let mut lines = reader.lines();
@@ -98,6 +99,8 @@ fn main() {
             }
         }
     }
+
+    println!("world after for= {:?}", world); // TO DO borrar
 
     if world.len_flatlanders() < n {
         eprintln!("{}", error::InputError::MissingLine);

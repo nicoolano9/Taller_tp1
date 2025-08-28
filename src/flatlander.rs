@@ -21,10 +21,15 @@ impl Flatlander {
             return Err(InputError::OutOfRange)
         }
 
-        Ok(Self {
-            x,
-            hight
-        })
+        Ok(Self { x, hight })
+    }
+
+    pub fn get_pos(&self) -> i32 {
+        self.x
+    }
+
+    pub fn get_hight(&self) -> u32 {
+        self.hight
     }
 }
 

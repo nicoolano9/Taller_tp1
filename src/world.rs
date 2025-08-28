@@ -1,6 +1,7 @@
 use std::fmt;
 use crate::flatlander;
 use crate::error::InputError;
+use crate::shadow;
 
 const MIN_ANG: i32 = 10;
 const MAX_ANG: i32 = 80;
@@ -11,6 +12,7 @@ const MAX_FLATLANDERS: u32 = 100_000;
 pub struct World {
     light_ang: i32,
     flatlanders: Vec<flatlander::Flatlander>,
+    shadows: Vec<shadow::Shadow>,
     capacity: u32,
 }
 
@@ -36,6 +38,7 @@ impl World {
         Ok(Self {
             light_ang: ang,
             flatlanders: Vec::new(),
+            shadows: Vec::new(),
             capacity
         })
     }
@@ -46,7 +49,13 @@ impl World {
         }
         match flatlander::Flatlander::new(x, hight) {
             Ok(flat) => {
+                let light_ang_f64 = self.light_ang as f64;
+                
+                self.shadows.push(shadow::Shadow::new(&flat, &light_ang_f64));
+                
                 self.flatlanders.push(flat);
+
+
                 Ok(())
             },
             Err(err) => Err(err)
