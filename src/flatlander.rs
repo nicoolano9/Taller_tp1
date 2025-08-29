@@ -5,6 +5,7 @@ const MAX_X: i32 = 3 * 100_000;
 const MIN_H: u32 = 1;
 const MAX_H: u32 = 1000;
 
+/// Representa a un habitante de del mundo plano con una posición y altura.
 #[derive(Debug)]
 pub struct Flatlander {
     x: i32,
@@ -12,27 +13,38 @@ pub struct Flatlander {
 }
 
 impl Flatlander {
+    /// Crea un nuevo `Flatlander`.
+    ///
+    /// # Argumentos
+    ///
+    /// * `x` - La posición en el eje x.
+    /// * `hight` - La altura del Flatlander.
+    ///
+    /// # Errores
+    ///
+    /// Devuelve `InputError::OutOfRange` si `x` o `hight` están fuera de los rangos permitidos.
     pub fn new(x: i32, hight: u32) -> Result<Self, InputError> {
-        if x < MIN_X || x > MAX_X {
-            return Err(InputError::OutOfRange)
+        if !(MIN_X..=MAX_X).contains(&x) {
+            return Err(InputError::OutOfRange);
         }
 
-        if hight < MIN_H || hight > MAX_H {
-            return Err(InputError::OutOfRange)
+        if !(MIN_H..=MAX_H).contains(&hight) {
+            return Err(InputError::OutOfRange);
         }
 
         Ok(Self { x, hight })
     }
 
+    /// Devuelve la posición del `Flatlander`.
     pub fn get_pos(&self) -> i32 {
         self.x
     }
 
+    /// Devuelve la altura del `Flatlander`.
     pub fn get_hight(&self) -> u32 {
         self.hight
     }
 }
-
 
 #[cfg(test)]
 mod tests {

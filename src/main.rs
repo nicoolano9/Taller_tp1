@@ -1,20 +1,18 @@
 use std::io::{self, BufRead};
 
 mod error;
-mod world;
 mod flatlander;
 mod shadow;
+mod world;
 
 fn read_first_line<R: BufRead>(reader: &mut R) -> Result<String, error::InputError> {
     let mut lines = reader.lines();
-    
-    let first_line = match lines.next() {
+
+    match lines.next() {
         Some(Ok(line)) => Ok(line),
         Some(Err(_)) => Err(error::InputError::Io),
         None => Err(error::InputError::Io),
-    };
-    
-    first_line
+    }
 }
 
 // Se ignora si hay más valores de los esperados.
@@ -52,31 +50,27 @@ fn main() {
         Ok(line) => line,
         Err(err) => {
             eprintln!("{}", err);
-            return
+            return;
         }
     };
 
     let (ang, n) = match get_inputs(first_line) {
         Ok(values) => values,
-        Err(err) => { 
+        Err(err) => {
             eprintln!("{}", err);
             return;
         }
     };
-
-    println!("ang = {}, n = {}", ang, n); // TO DO borrar
 
     let mut world = match world::World::new(ang, n) {
         Ok(world) => world,
-        Err(err) => { 
+        Err(err) => {
             eprintln!("{}", err);
             return;
         }
     };
 
-    println!("world = {:?}", world); // TO DO borrar
-
-    for (_i, line) in reader.lines().enumerate() {
+    for line in reader.lines() {
         let line = match line {
             Ok(l) => l,
             Err(_) => {
@@ -92,7 +86,7 @@ fn main() {
             }
         };
         match world.add_flatlander(x, h) {
-            Ok(()) => {},
+            Ok(()) => {}
             Err(err) => {
                 eprintln!("{}", err);
                 return;
@@ -100,10 +94,10 @@ fn main() {
         }
     }
 
-    println!("world after for= {:?}", world); // TO DO borrar
-
     if world.len_flatlanders() < n {
         eprintln!("{}", error::InputError::MissingLine);
-        return
+        return;
     }
+
+    println!("{}", world.total_shadows_len());
 }

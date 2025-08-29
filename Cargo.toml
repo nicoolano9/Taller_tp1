@@ -3,4 +3,6 @@ name = "tp_1"
 version = "0.1.0"
 edition = "2024"
 
-[dependencies]
+[lib]
+name = "tp_1"
+path = "src/lib.rs"

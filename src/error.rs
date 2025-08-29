@@ -2,10 +2,15 @@ use std::fmt;
 
 #[derive(Debug)]
 pub enum InputError {
+    /// - `Io`: Error de entrada/salida.
     Io,
+    /// - `OutOfRange`: Un valor numérico está fuera del rango permitido.
     OutOfRange,
+    /// - `MissingValue`: Falta un valor esperado en la entrada.
     MissingValue,
+    /// - `InvalidValue`: Un valor no se pudo interpretar como un número válido.
     InvalidValue,
+    /// - `MissingLine`: Falta una línea esperada en la entrada.
     MissingLine,
 }
 
