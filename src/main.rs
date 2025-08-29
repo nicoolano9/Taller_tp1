@@ -5,6 +5,7 @@ mod flatlander;
 mod shadow;
 mod world;
 
+/// Lee la primera línea de la entrada.
 fn read_first_line<R: BufRead>(reader: &mut R) -> Result<String, error::InputError> {
     let mut lines = reader.lines();
 
@@ -15,7 +16,8 @@ fn read_first_line<R: BufRead>(reader: &mut R) -> Result<String, error::InputErr
     }
 }
 
-// Se ignora si hay más valores de los esperados.
+/// Obtiene los valores de entrada de una línea
+/// Ignora los valores adicionales.
 fn get_inputs(line: String) -> Result<(i32, u32), error::InputError> {
     let mut iter = line.split_whitespace();
 
