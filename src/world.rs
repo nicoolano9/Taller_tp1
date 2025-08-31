@@ -131,7 +131,7 @@ mod tests {
         let capacity = (MIN_FLATLANDERS + MAX_FLATLANDERS) / 2;
         let world = World::new(ang, capacity);
         assert!(
-            matches!(world, Ok(ref w) if w.light_ang == ang && w.capacity == capacity && w.flatlanders.len() == 0)
+            matches!(world, Ok(ref w) if w.light_ang == ang && w.capacity == capacity && w.flatlanders.is_empty())
         );
     }
 
@@ -172,7 +172,7 @@ mod tests {
         let ang = MIN_ANG;
         let capacity = MIN_FLATLANDERS;
         let world = World::new(ang, capacity);
-        assert!(matches!(world, Ok(_)));
+        assert!(world.is_ok());
     }
 
     #[test]
@@ -180,6 +180,6 @@ mod tests {
         let ang = MAX_ANG;
         let capacity = MAX_FLATLANDERS;
         let world = World::new(ang, capacity);
-        assert!(matches!(world, Ok(_)));
+        assert!(world.is_ok());
     }
 }
